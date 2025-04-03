@@ -13,8 +13,7 @@ interface Product {
   extras: Extra[];
 }
 
-const ProductOption = ({ product }: { product: Product }) => {
-  const [quantity, setQuantity] = useState<number>(1);
+const ProductOption = ({ product }: { product: Product }) => {;
   const [extras, setExtras] = useState<Record<string, number>>({});
 
   return (
