@@ -18,13 +18,14 @@ export default function ProductCart({ product, onClick }: ProductCartProps) {
     >
       {/* Imagem do produto */}
       <div className="w-24 h-24">
-        <Image
-          src={`/images/${product.image}`}
-          alt={product.name}
-          width={96}
-          height={96}
-          className="object-cover rounded-md"
-        />
+      <Image
+  src={`/images/${product.image}`} // Funciona porque está na pasta "public"
+  alt={product.name}
+  width={96}
+  height={96}
+  className="object-cover rounded-md"
+/>
+
       </div>
       {/* Texto do produto */}
       <div className="flex-1 pr-4">

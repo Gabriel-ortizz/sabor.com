@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface Product {
   name: string;
   description: string;
@@ -21,7 +23,15 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
         </div>
 
         <div className="p-4">
-          <img src={product.image} alt={product.name} className="w-full h-60 object-cover rounded-md" />
+          <div className="relative w-full h-60">
+            <Image
+              src={`/images/${product.image}`} // Ajuste o caminho conforme necessário
+              alt={product.name}
+              layout="fill"
+              objectFit="cover"
+              className="rounded-md"
+            />
+          </div>
           <p className="mt-4">{product.description}</p>
           <p className="text-lg font-bold mt-2">R$ {product.price.toFixed(2)}</p>
 
