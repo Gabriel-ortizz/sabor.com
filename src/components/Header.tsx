@@ -17,7 +17,7 @@ const Header = ({ onMenuClick, cartItemCount, onCartClick }: HeaderProps) => {
 
       {/* Logo */}
       <div className="absolute left-1/2 transform -translate-x-1/2 w-32 h-16 flex items-center justify-center">
-        <Image src="/Logo.png" alt="Logo" width={70} height={80} />
+        <Image src="/img/Logo.png" alt="Logo" width={70} height={80} />
       </div>
 
       {/* Carrinho */}

@@ -33,11 +33,11 @@ export default function Cardapio() {
   const categorias = ["Todos", "Hamburgueres", "Cachorros quentes", "Novidade", "Porções", "Bebidas"];
 
   const produtos: Product[] = [
-    { name: "Cachorro Quente de Linguiça Boladão", description: "Pão, 4 linguiças, mostarda, ketchup...", price: 28, image: "/hamburguer.jpeg", category: "Cachorros quentes", extras: [] },
-    { name: "Cachorro Quente de Salsicha", description: "Pão, 4 salsichas, mostarda, ketchup...", price: 27, image: "/hamburguer.jpeg", category: "Cachorros quentes", extras: [] },
-    { name: "Hambúrguer Artesanal", description: "Hambúrguer suculento feito na brasa", price: 25, image: "/hamburguer.jpeg", category: "Hamburgueres", extras: [] }, 
-    { name: "Coca-cola", description: "Refrigerante gelado", price: 8, image: "/hamburguer.jpeg", category: "Bebidas", extras: [] },
-    { name: "Batata-frita", description: "Porção de batata frita crocante", price: 20, image: "/hamburguer.jpeg", category: "Porções", extras: [] },
+    { name: "Cachorro Quente de Linguiça Boladão", description: "Pão, 4 linguiças, mostarda, ketchup...", price: 28, image: "/img/hamburguer.jpeg", category: "Cachorros quentes", extras: [] },
+    { name: "Cachorro Quente de Salsicha", description: "Pão, 4 salsichas, mostarda, ketchup...", price: 27, image: "/img/hamburguer.jpeg", category: "Cachorros quentes", extras: [] },
+    { name: "Hambúrguer Artesanal", description: "Hambúrguer suculento feito na brasa", price: 25, image: "/img/hamburguer.jpeg", category: "Hamburgueres", extras: [] }, 
+    { name: "Coca-cola", description: "Refrigerante gelado", price: 8, image: "/img/hamburguer.jpeg", category: "Bebidas", extras: [] },
+    { name: "Batata-frita", description: "Porção de batata frita crocante", price: 20, image: "/img/hamburguer.jpeg", category: "Porções", extras: [] },
   ];
 
   // Filtrando produtos conforme categoria e termo de pesquisa
