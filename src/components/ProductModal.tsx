@@ -134,7 +134,7 @@ const ProductModal = ({ product, onClose, addToCart }: ProductModalProps) => {
             className="bg-pink-600 text-white py-2 px-6 rounded-lg hover:bg-pink-700 transition"
             onClick={() => {
               const extrasArray = Object.entries(extrasSelecionados)
-                .filter(([_, qtd]) => qtd > 0)
+                .filter(([, qtd]) => qtd > 0)
                 .map(([extraName, qtd]) => {
                   const extraInfo = product.extras.find((e) => e.name === extraName);
                   return extraInfo ? { name: extraInfo.name, price: extraInfo.price, quantidade: qtd } : null;
