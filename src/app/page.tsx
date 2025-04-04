@@ -7,22 +7,29 @@ import Cart from "@/components/Cart";
 import ProductModal from "@/components/ProductModal";
 import ProductCard from "@/components/ProductCard";
 
+interface Product {
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+  category: string;
+  extras: { name: string; description: string; price: number }[];
+}
+
+// Interface corrigida para os itens do carrinho
+interface CartItem {
+  product: Product;
+  extrasSelecionados: { name: string; price: number; quantidade: number }[];
+}
+
+
+
 export default function Cardapio() {
   const [categoriaSelecionada, setCategoriaSelecionada] = useState("Todos");
   const [termoPesquisa, setTermoPesquisa] = useState("");
   const [produtoSelecionado, setProdutoSelecionado] = useState<null | Product>(null);
-  const [cartItems, setCartItems] = useState<
-    { product: Product; extrasSelecionados: { name: string; price: number; quantidade: number }[] }[]
-  >([]);
-
-  interface Product {
-    name: string;
-    description: string;
-    price: number;
-    image: string;
-    category: string;
-    extras: { name: string; description: string; price: number }[];
-  }
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const categorias = ["Todos", "Hamburgueres", "Cachorros quentes", "Novidade", "Porções", "Bebidas"];
 
@@ -34,17 +41,17 @@ export default function Cardapio() {
     { name: "Batata-frita", description: "Porção de batata frita crocante", price: 20, image: "/hamburguer.jpeg", category: "Porções", extras: [] },
   ];
 
-  // Filtro de produtos
+  // Filtrando produtos conforme categoria e termo de pesquisa
   const produtosFiltrados = produtos.filter(produto =>
     (categoriaSelecionada === "Todos" || produto.category === categoriaSelecionada) &&
     (produto.name.toLowerCase().includes(termoPesquisa.toLowerCase()) ||
       produto.description.toLowerCase().includes(termoPesquisa.toLowerCase()))
   );
 
-  // Categorias dinâmicas
+  // Pegando apenas as categorias que têm produtos filtrados
   const categoriasFiltradas = Array.from(new Set(produtosFiltrados.map(p => p.category)));
 
-  // Adicionar ao carrinho
+  // Adicionar produto ao carrinho
   const addToCart = (produto: Product, extrasSelecionados: { name: string; price: number; quantidade: number }[]) => {
     setCartItems([...cartItems, { product: produto, extrasSelecionados }]);
   };
@@ -52,7 +59,7 @@ export default function Cardapio() {
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* Header fixo */}
-      <Header onMenuClick={() => console.log("Menu aberto")} cartItemCount={cartItems.length} onCartClick={() => console.log("Abrir carrinho")} />
+      <Header onMenuClick={() => console.log("Menu aberto")} cartItemCount={cartItems.length} onCartClick={() => setIsCartOpen(true)} />
 
       {/* Barra de categorias e pesquisa fixada abaixo do header */}
       <div className="sticky top-[4rem] z-20 bg-white shadow-md px-4 py-3">
@@ -100,8 +107,15 @@ export default function Cardapio() {
         ))}
       </div>
 
-      {/* Carrinho */}
-      <Cart itemCount={cartItems.length} onClick={() => console.log("Abrir carrinho")} />
+      {/* Carrinho corrigido */}
+      <Cart 
+        itemCount={cartItems.length} 
+        onClick={() => setIsCartOpen(true)} 
+        isCartOpen={isCartOpen} 
+        setIsCartOpen={setIsCartOpen} 
+        cartItems={cartItems} 
+        setCartItems={setCartItems} 
+      />
 
       {/* Modal de Produto */}
       {produtoSelecionado && (
