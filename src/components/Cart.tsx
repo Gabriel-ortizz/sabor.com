@@ -2,11 +2,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import { FaTrash } from "react-icons/fa";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import { CartItem, Product } from "types/CartItem";
-
-
-
-
+import { CartItem} from "types/CartItem";
 
 interface CartProps {
   itemCount: number;
