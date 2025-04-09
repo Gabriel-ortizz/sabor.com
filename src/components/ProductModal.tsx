@@ -64,7 +64,7 @@ const ProductModal = ({ product, onClose, addToCart }: ProductModalProps) => {
   const precoTotal = (product.price + precoExtras) * quantidade;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50" onClick={onClose}>
+    <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 z-50" onClick={onClose}>
       <div
         className="bg-white w-full max-w-2xl rounded-lg shadow-lg max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
