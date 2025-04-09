@@ -33,7 +33,7 @@ export default function ProductCard({ product, onClick }: ProductCartProps) {
       <div className="flex-1">
         <h3 className="font-bold text-lg">{product.name.toUpperCase()}</h3>
         <p className="text-sm text-gray-600 line-clamp-2">{product.description}</p>
-        <p className="font-bold mt-2 text-pink-600">R$ {product.price.toFixed(2)}</p>
+        <p className="font-bold mt-2 text-black">R$ {product.price.toFixed(2)}</p>
       </div>
     </div>
   );

@@ -124,7 +124,7 @@ const ProductModal = ({ product, onClose, addToCart }: ProductModalProps) => {
                       <div>
                         <p className="font-medium">{extra.name}</p>
                         <p className="text-sm text-gray-500">{extra.description}</p>
-                        <p className="text-sm font-bold text-pink-600">
+                        <p className="text-sm font-bold text-black">
                           R$ {extra.price.toFixed(2)}
                         </p>
                         {extrasSelecionados[extra.name] > 0 && (
@@ -168,11 +168,11 @@ const ProductModal = ({ product, onClose, addToCart }: ProductModalProps) => {
 
         {/* Preço total e botão */}
         <div className="mt-4 p-4 flex justify-between items-center border-t bg-white sticky bottom-0">
-          <span className="text-lg font-bold text-pink-600">
+          <span className="text-lg font-bold text-black">
             R$ {precoTotal.toFixed(2)}
           </span>
           <button
-            className="bg-pink-600 text-white py-2 px-6 rounded-lg hover:bg-pink-700 transition"
+            className="bg-black text-white py-2 px-6 rounded-lg hover:bg-black transition"
             onClick={() => {
               const extrasArray = Object.entries(extrasSelecionados)
                 .filter(([, qtd]) => qtd > 0)
