@@ -146,7 +146,7 @@ const Cart = ({
     <>
       <button
         onClick={onClick}
-        className="fixed bottom-4 right-4 bg-pink-500 text-white p-4 rounded-full shadow-lg cursor-pointer transition transform hover:scale-110 active:scale-95 z-50"
+        className="fixed bottom-4 right-4 bg-black text-white p-4 rounded-full shadow-lg cursor-pointer transition transform hover:scale-110 active:scale-95 z-50"
         aria-label="Abrir carrinho"
       >
         <div className="relative">
