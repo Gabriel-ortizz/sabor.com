@@ -5,15 +5,7 @@ import Header from "@/components/Header";
 import Cart from "@/components/Cart";
 import ProductModal from "@/components/ProductModal";
 import ProductCard from "@/components/ProductCard";
-
-interface Product {
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-  category: string;
-  extras: { name: string; description: string; price: number }[];
-}
+import { Product, categorias, produtos } from "data/Produto";
 
 interface CartItem {
   product: Product;
@@ -27,61 +19,6 @@ export default function Cardapio() {
   const [produtoSelecionado, setProdutoSelecionado] = useState<null | Product>(null);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-
-  const categorias = ["Todos", "Hamburgueres", "Cachorros quentes", "Novidade", "Porções", "Bebidas"];
-
-  const produtos: Product[] = [
-    {
-      name: "Cachorro Quente de Linguiça Boladão",
-      description: "Pão, 4 linguiças, mostarda, ketchup...",
-      price: 28,
-      image: "/img/hamburguer.jpeg",
-      category: "Cachorros quentes",
-      extras: [
-        { name: "Queijo extra", description: "Fatia de queijo cheddar", price: 2 },
-        { name: "Bacon", description: "Tiras crocantes de bacon", price: 3 },
-        { name: "Molho especial", description: "Molho da casa", price: 1.5 },
-      ],
-    },
-    {
-      name: "Cachorro Quente de Salsicha",
-      description: "Pão, 4 salsichas, mostarda, ketchup...",
-      price: 27,
-      image: "/img/hamburguer.jpeg",
-      category: "Cachorros quentes",
-      extras: [
-        { name: "Queijo extra", description: "Fatia de queijo cheddar", price: 2 },
-        { name: "Milho", description: "Milho verde", price: 1 },
-      ],
-    },
-    {
-      name: "Hambúrguer Artesanal",
-      description: "Hambúrguer suculento feito na brasa",
-      price: 25,
-      image: "/img/hamburguer.jpeg",
-      category: "Hamburgueres",
-      extras: [
-        { name: "Bacon", description: "Tiras crocantes de bacon", price: 3 },
-        { name: "Onion Rings", description: "Cebola empanada", price: 2.5 },
-      ],
-    },
-    {
-      name: "Coca-cola",
-      description: "Refrigerante gelado",
-      price: 8,
-      image: "/img/hamburguer.jpeg",
-      category: "Bebidas",
-      extras: [],
-    },
-    {
-      name: "Batata-frita",
-      description: "Porção de batata frita crocante",
-      price: 20,
-      image: "/img/hamburguer.jpeg",
-      category: "Porções",
-      extras: [],
-    },
-  ];
 
   const produtosFiltrados = produtos.filter((produto) =>
     (categoriaSelecionada === "Todos" || produto.category === categoriaSelecionada) &&
@@ -115,7 +52,7 @@ export default function Cardapio() {
       />
 
       {/* Categorias e pesquisa */}
-      <div className="sticky top-[4rem] z-20 bg-white shadow-md px-4 py-3">
+      <div className="sticky top-[4rem] z-20 bg-white shadow-md px-4 py-6">
         <div className="flex gap-2 overflow-x-auto pb-2">
           {categorias.map((categoria) => (
             <button
@@ -154,8 +91,12 @@ export default function Cardapio() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {produtosFiltrados
                 .filter((produto) => produto.category === categoria)
-                .map((produto, index) => (
-                  <ProductCard key={index} product={produto} onClick={() => setProdutoSelecionado(produto)} />
+                .map((produto) => (
+                  <ProductCard
+                    key={produto.name}
+                    product={produto}
+                    onClick={() => setProdutoSelecionado(produto)}
+                  />
                 ))}
             </div>
           </div>
