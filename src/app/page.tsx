@@ -6,12 +6,10 @@ import Cart from "@/components/Cart";
 import ProductModal from "@/components/ProductModal";
 import ProductCard from "@/components/ProductCard";
 import { Product, categorias, produtos } from "data/Produto";
+import { CartItem } from "types/CartItem";
 
-interface CartItem {
-  product: Product;
-  extrasSelecionados: { name: string; price: number; quantidade: number }[];
-  observacao?: string;
-}
+
+
 
 export default function Cardapio() {
   const [categoriaSelecionada, setCategoriaSelecionada] = useState("Todos");
@@ -39,6 +37,7 @@ export default function Cardapio() {
         product: produto,
         extrasSelecionados,
         observacao,
+        quantidade: 1,
       },
     ]);
   };

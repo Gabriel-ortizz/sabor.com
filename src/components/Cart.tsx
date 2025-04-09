@@ -1,20 +1,12 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FiShoppingCart } from "react-icons/fi";
+import { FaTrash } from "react-icons/fa";
+import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import { CartItem, Product } from "types/CartItem";
 
-interface Product {
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-  category: string;
-  extras: { name: string; description: string; price: number }[];
-}
 
-interface CartItem {
-  product: Product;
-  extrasSelecionados: { name: string; quantidade: number; price: number }[];
-  observacao?: string;
-}
+
+
 
 interface CartProps {
   itemCount: number;
@@ -63,12 +55,36 @@ const Cart = ({
   const totalPrice = cartItems.reduce(
     (total, item) =>
       total +
-      item.product.price +
-      item.extrasSelecionados.reduce((sum, extra) => sum + extra.quantidade * extra.price, 0),
+      (item.product.price +
+        item.extrasSelecionados.reduce((sum, extra) => sum + extra.quantidade * extra.price, 0)) *
+        item.quantidade,
     0
   ) + taxaEntrega;
 
   const clearCart = () => setCartItems([]);
+
+  const updateQuantity = (index: number, amount: number) => {
+    setCartItems((prev) => {
+      const updated = [...prev];
+      const item = updated[index];
+      if (!item) return prev;
+      const newQty = item.quantidade + amount;
+      if (newQty <= 0) {
+        updated.splice(index, 1);
+      } else {
+        updated[index] = { ...item, quantidade: newQty };
+      }
+      return updated;
+    });
+  };
+
+  const removeItem = (index: number) => {
+    setCartItems((prev) => {
+      const updated = [...prev];
+      updated.splice(index, 1);
+      return updated;
+    });
+  };
 
   const fetchAddress = async () => {
     if (cep.length === 8) {
@@ -104,7 +120,8 @@ const Cart = ({
       .map((item) => {
         const extras = item.extrasSelecionados.map(extra => `+ ${extra.name} (x${extra.quantidade})`).join(", ");
         const observacaoText = item.observacao ? `\nObs: ${item.observacao}` : '';
-        return `• ${item.product.name}${extras ? ` (${extras})` : ''} - R$ ${(item.product.price + item.extrasSelecionados.reduce((sum, e) => sum + e.quantidade * e.price, 0)).toFixed(2)}${observacaoText}`;
+        const itemTotal = (item.product.price + item.extrasSelecionados.reduce((sum, e) => sum + e.quantidade * e.price, 0)) * item.quantidade;
+        return `• ${item.product.name}${extras ? ` (${extras})` : ''} x${item.quantidade} - R$ ${itemTotal.toFixed(2)}${observacaoText}`;
       })
       .join('%0A');
 
@@ -160,25 +177,35 @@ const Cart = ({
               <>
                 <ul className="space-y-4 border-b pb-4">
                   {cartItems.map((item, index) => (
-                    <li key={index} className="border-b pb-2 flex gap-3 items-start">
-                      <img
-                        src={item.product.image}
-                        alt={item.product.name}
-                        className="w-16 h-16 object-cover rounded-lg border"
-                      />
-                      <div className="flex-1">
-                        <h3 className="font-bold text-base md:text-lg">{item.product.name}</h3>
-                        <p className="text-sm text-gray-600">R$ {item.product.price.toFixed(2)}</p>
-                        {item.extrasSelecionados.length > 0 && (
-                          <ul className="text-xs mt-1 text-gray-500">
-                            {item.extrasSelecionados.map((extra, i) => (
-                              <li key={i}>+ {extra.name} (x{extra.quantidade}) - R$ {(extra.quantidade * extra.price).toFixed(2)}</li>
-                            ))}
-                          </ul>
-                        )}
-                        {item.observacao && (
-                          <p className="text-xs text-gray-500 italic mt-1">Obs: {item.observacao}</p>
-                        )}
+                    <li key={index} className="border-b pb-2">
+                      <div className="flex items-center gap-2">
+                        <img src={item.product.image} alt={item.product.name} className="w-14 h-14 object-cover rounded" />
+                        <div className="flex-1">
+                          <h3 className="font-bold text-base md:text-lg">{item.product.name}</h3>
+                          <p className="text-sm text-gray-600">R$ {item.product.price.toFixed(2)}</p>
+                          {item.extrasSelecionados.length > 0 && (
+                            <ul className="text-xs mt-1 text-gray-500">
+                              {item.extrasSelecionados.map((extra, i) => (
+                                <li key={i}>+ {extra.name} (x{extra.quantidade}) - R$ {(extra.quantidade * extra.price).toFixed(2)}</li>
+                              ))}
+                            </ul>
+                          )}
+                          {item.observacao && (
+                            <p className="text-xs text-gray-500 italic mt-1">Obs: {item.observacao}</p>
+                          )}
+                          <div className="flex items-center mt-2 gap-2">
+                            <button onClick={() => updateQuantity(index, -1)} className="text-gray-600 p-1 border rounded">
+                              <AiOutlineMinus />
+                            </button>
+                            <span className="px-2 font-medium">{item.quantidade}</span>
+                            <button onClick={() => updateQuantity(index, 1)} className="text-gray-600 p-1 border rounded">
+                              <AiOutlinePlus />
+                            </button>
+                            <button onClick={() => removeItem(index)} className="ml-auto text-red-500 p-1">
+                              <FaTrash />
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </li>
                   ))}
@@ -266,7 +293,7 @@ const Cart = ({
                         /> Pix
                       </label>
                       <label className="flex items-center gap-2">
-                        <input  
+                        <input
                           type="radio"
                           name="payment"
                           value="dinheiro"
@@ -296,7 +323,6 @@ const Cart = ({
         </div>
       )}
     </>
-    
   );
 };
 

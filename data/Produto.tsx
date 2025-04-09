@@ -33,10 +33,21 @@ export const produtos: Product[] = [
     ],
   },
   {
+    name: "Hambúrguer Artesana",
+    description: "Hambúrguer suculento feito na brasa",
+    price: 25,
+    image: "/img/hamburguer.jpeg",
+    category: "Hamburgueres",
+    extras: [
+      { name: "Bacon", description: "Tiras crocantes de bacon", price: 3 },
+      { name: "Onion Rings", description: "Cebola empanada", price: 2.5 },
+    ],
+  },
+  {
     name: "Cachorro Quente",
     description: "Salsicha, queijo e molho especial",
     price: 18,
-    image: "/img/cachorro-quente.jpg",
+    image: "/img/hamburguer.jpeg",
     category: "Cachorros quentes",
     extras: [
       { name: "Cheddar", description: "Creme de cheddar", price: 2 },
@@ -47,7 +58,7 @@ export const produtos: Product[] = [
     name: "Porção de Batata",
     description: "Batata frita crocante",
     price: 15,
-    image: "/img/batata.jpg",
+    image: "/img/hamburguer.jpeg",
     category: "Porções",
     extras: [
       { name: "Molho cheddar", description: "Molho de cheddar extra", price: 2 },
@@ -58,7 +69,7 @@ export const produtos: Product[] = [
     name: "Refrigerante Lata",
     description: "Escolha entre Coca-Cola, Guaraná, Fanta...",
     price: 6,
-    image: "/img/refrigerante.jpg",
+    image: "/img/hamburguer.jpeg",
     category: "Bebidas",
     extras: [],
   },
@@ -66,7 +77,7 @@ export const produtos: Product[] = [
     name: "Milkshake de Chocolate",
     description: "Feito com sorvete artesanal",
     price: 12,
-    image: "/img/milkshake.jpg",
+    image: "/img/hamburguer.jpeg",
     category: "Novidade",
     extras: [
       { name: "Chantilly", description: "Cobertura de chantilly", price: 1.5 },
